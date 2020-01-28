@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5C3A5D13-EC1C-4A4F-B9B2-5962034153FC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartHouse.DAL</RootNamespace>
+    <AssemblyName>SmartHouse.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.12.0.4518.1014\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <Private>True</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MoreLinq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.3.0.0\lib\net451\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\BinaryController.cs" />
+    <Compile Include="Controller\ExcelController.cs" />
+    <Compile Include="Controller\IDocumentController.cs" />
+    <Compile Include="Controller\IReportController.cs" />
+    <Compile Include="Controller\ReportWordController.cs" />
+    <Compile Include="Controller\WordController.cs" />
+    <Compile Include="Model\Constants.cs" />
+    <Compile Include="Model\Device.cs" />
+    <Compile Include="Model\DeviceDayOfWeek.cs" />
+    <Compile Include="Model\ElectricalPrices.cs" />
+    <Compile Include="Model\Floor.cs" />
+    <Compile Include="Model\HeatPump\HeatPump.cs" />
+    <Compile Include="Model\HeatPump\HeatPumpDescription.cs" />
+    <Compile Include="Model\HeatPump\HeatPumpCalculation.cs" />
+    <Compile Include="Model\House.cs" />
+    <Compile Include="Model\HouseThermalParam.cs" />
+    <Compile Include="Model\HydroElectricLoad.cs" />
+    <Compile Include="Model\Pathes.cs" />
+    <Compile Include="Model\Period.cs" />
+    <Compile Include="Model\Report\ElectricalLoadScheduleReport.cs" />
+    <Compile Include="Model\Report\HeatPumpReport.cs" />
+    <Compile Include="Model\Report\HeatStoreReport.cs" />
+    <Compile Include="Model\Report\Report.cs" />
+    <Compile Include="Model\Report\ThermalEnergyReport.cs" />
+    <Compile Include="Model\Report\ThermalEnergySchemeReport.cs" />
+    <Compile Include="Model\Report\WeatherConditionReport.cs" />
+    <Compile Include="Model\Report\WindReport.cs" />
+    <Compile Include="Model\Room.cs" />
+    <Compile Include="Model\Sun.cs" />
+    <Compile Include="Model\Wall.cs" />
+    <Compile Include="Model\Weather.cs" />
+    <Compile Include="Model\Wind\WindGeneratorDescription.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

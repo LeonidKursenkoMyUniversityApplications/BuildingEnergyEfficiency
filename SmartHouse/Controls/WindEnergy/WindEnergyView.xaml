@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="SmartHouse.Controls.WindEnergy.WindEnergyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:charting="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Характеристика ВЕУ">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <Label>Висота башти ВЕУ, м</Label>
+                        <TextBox x:Name="TowerTextBox" HorizontalAlignment="Left"  
+                                    Width="200" Margin="5,0,0,0"></TextBox>
+                        <Button x:Name="SaveWindGenButton" 
+                                Margin="250,-28,0,0" 
+                                HorizontalAlignment="Left"
+                                Width="150" 
+                                FontSize="14" 
+                                FontStyle="Italic" 
+                                FontWeight="Bold" Click="SaveWindGenButton_Click">Застосувати</Button>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Grid.Column="0">
+                            <DataGrid x:Name="WindGenDesGrid"
+                                      AutoGenerateColumns="False" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"></DataGrid>
+                        </DockPanel>
+                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"></GridSplitter>
+                        <WindowsFormsHost Grid.Column="2">
+                            <charting:Chart x:Name="WindGenChart" GetToolTipText="WindGenChart_GetToolTipText"/>
+                        </WindowsFormsHost>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Обсяги генерування">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <GroupBox Header="Виберіть період">
+                            <StackPanel>
+                                <Label>Початкова дата</Label>
+                                <WindowsFormsHost >
+                                    <forms:DateTimePicker x:Name="DateTimePickerStart" 
+                                           Format="Custom" CustomFormat="dd.MM.yyyy HH:mm" 
+                                           ValueChanged="DateTimePickerStart_ValueChanged" Enabled="False"></forms:DateTimePicker>
+                                </WindowsFormsHost>
+                                <Label>Кінцева дата</Label>
+                                <WindowsFormsHost >
+                                    <forms:DateTimePicker x:Name="DateTimePickerEnd" 
+                                           Format="Custom" CustomFormat="dd.MM.yyyy HH:mm" 
+                                           ValueChanged="DateTimePickerEnd_ValueChanged" Enabled="False"></forms:DateTimePicker>
+                                </WindowsFormsHost>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </Grid>
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <DockPanel Grid.Column="0">
+                            <DataGrid x:Name="WindGrid" 
+                                      AutoGenerateColumns="False" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                            </DataGrid>
+                        </DockPanel>
+                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="TotalEnergyLabel" FontSize="14" FontStyle="Italic" FontWeight="Bold">Всього:</Label>
+                            <WindowsFormsHost Grid.Row="1">
+                                <charting:Chart x:Name="WindChart" GetToolTipText="WindChart_GetToolTipText"/>
+                            </WindowsFormsHost>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Економічні розрахунки">
+                <StackPanel>
+                    <GroupBox Header="Параметри">
+                        <StackPanel>
+                            <Label>"Зелений тариф" за 1кВт∙год, €</Label>
+                            <TextBox x:Name="GreenPriceTextBox" Width="200" HorizontalAlignment="Left" Margin="5,0,0,5"></TextBox>
+                            <Label>Дохід від продажу одиниць скорочення викидів (ОСВ), €</Label>
+                            <TextBox x:Name="ReducedPollutionPriceTextBox" Width="200" HorizontalAlignment="Left" Margin="5,0,0,5"></TextBox>
+                            
+                        </StackPanel>
+                    </GroupBox>
+                    <Button x:Name="CalculateCostButton" 
+                            Width="150" 
+                            FontSize="14" 
+                            FontStyle="Italic" 
+                            FontWeight="Bold" 
+                            HorizontalAlignment="Left" 
+                            Margin="12,5,5,5" Click="CalculateCostButton_Click">Застосувати</Button>
+                    <GroupBox Header="Розрахунки">
+                        <StackPanel>
+                            <Label>Оцінку обсягів скорочень викидів парникових газів у тонах СО2 еквіваленту</Label>
+                            <TextBox x:Name="Co2TextBox" 
+                                     Width="200" HorizontalAlignment="Left" Margin="5,0,0,5"
+                                     IsReadOnly="True"></TextBox>
+                            <Label>Дохід від продажу електричної енергії за «зеленим» тарифом, €</Label>
+                            <TextBox x:Name="EnergyCostTextBox" 
+                                     Width="200" HorizontalAlignment="Left" Margin="5,0,0,5"
+                                     IsReadOnly="True"></TextBox>
+                            <Label>Дохід від продажу одиниць скорочення викидів (ОСВ), €</Label>
+                            <TextBox x:Name="ReducedPollutionCostTextBox" 
+                                     Width="200" HorizontalAlignment="Left" Margin="5,0,0,5"
+                                     IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
+
+
+

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="SmartHouse.Controls.GraphEnergyConsumption.GraphEnergyLoadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHouse.Controls.GraphEnergyConsumption"
+             xmlns:controls="clr-namespace:SmartHouse.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Графік навантаження">
+                <local:DeviceTableChart x:Name="DeviceTableChart">
+                </local:DeviceTableChart>
+            </TabItem>
+            <TabItem Header="Показники споживання електричної енергії">
+                <controls:RatesConsumeptionView x:Name="RatesConsumeptionView">
+                </controls:RatesConsumeptionView>
+            </TabItem>
+            <TabItem Header="Фінансові витрати">
+                <controls:PriceConsumeptionView x:Name="PriceConsumptionView"></controls:PriceConsumeptionView>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
+

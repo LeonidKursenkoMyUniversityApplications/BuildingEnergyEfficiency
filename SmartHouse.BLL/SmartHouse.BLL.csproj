@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{81596E01-4FE9-4FDD-BD99-A96C565C5F8F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartHouse.BLL</RootNamespace>
+    <AssemblyName>SmartHouse.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MoreLinq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.3.0.0\lib\net451\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\ConvertController.cs" />
+    <Compile Include="Controller\DeviceController.cs" />
+    <Compile Include="Controller\DeviceOptimizationController.cs" />
+    <Compile Include="Controller\HeatPumpController.cs" />
+    <Compile Include="Controller\HeatStoreController.cs" />
+    <Compile Include="Controller\HouseController.cs" />
+    <Compile Include="Controller\ReportController.cs" />
+    <Compile Include="Controller\SunConditionController.cs" />
+    <Compile Include="Controller\WeatherController.cs" />
+    <Compile Include="Controller\WindEnergyController.cs" />
+    <Compile Include="Model\CharacteristicHeatLosses.cs" />
+    <Compile Include="Model\DeviceOptimization.cs" />
+    <Compile Include="Model\DurationElectricalLoad.cs" />
+    <Compile Include="Model\DurationTemperature.cs" />
+    <Compile Include="Model\ElectricalConsumptionRow.cs" />
+    <Compile Include="Model\ElectricalLoad.cs" />
+    <Compile Include="Model\HeatConsumption.cs" />
+    <Compile Include="Model\HeatLosses.cs" />
+    <Compile Include="Model\HeatStore.cs" />
+    <Compile Include="Model\HeatStoreData.cs" />
+    <Compile Include="Model\PriceRow.cs" />
+    <Compile Include="Model\RatesConsumption.cs" />
+    <Compile Include="Model\SunActivity.cs" />
+    <Compile Include="Model\TypeOfHeat.cs" />
+    <Compile Include="Model\WindActivity.cs" />
+    <Compile Include="Model\WindGeneration.cs" />
+    <Compile Include="Model\WindRose.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartHouse.DAL\SmartHouse.DAL.csproj">
+      <Project>{5C3A5D13-EC1C-4A4F-B9B2-5962034153FC}</Project>
+      <Name>SmartHouse.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

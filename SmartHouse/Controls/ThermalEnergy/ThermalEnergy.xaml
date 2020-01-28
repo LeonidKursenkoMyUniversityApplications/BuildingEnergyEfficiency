@@ -1,0 +1,210 @@
+﻿<UserControl x:Class="SmartHouse.Controls.ThermalEnergy.ThermalEnergy"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHouse.Controls.ThermalEnergy"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Характеристики будівлі">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.85*"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.85*"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="1.5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" x:Name="FloorsGroupBox" Header="Список поверхів">
+                            <ListBox x:Name="FloorsListBox" SelectionChanged="FloorsListBox_SelectionChanged"></ListBox>
+                        </GroupBox>
+                        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch" />
+                        <GroupBox Grid.Row="2" x:Name="RoomsGroupBox"  Header="Список кімнат">
+                            <ListBox x:Name="RoomsListBox" SelectionChanged="RoomsListBox_SelectionChanged"/>
+                        </GroupBox>
+                    </Grid>
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                    <DockPanel Grid.Column="2">
+                        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False"></DataGrid>
+                    </DockPanel>
+                    <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch" />
+                    <StackPanel Grid.Column="4">
+                        <GroupBox Header="Характеристики кімнати">
+                            <StackPanel>
+                                <Label>Температура кімнати при індивідуальній схемі опалення, °С</Label>
+                                <TextBox x:Name="RoomTemperatureTextBox" 
+                                                 Width="100" 
+                                                 HorizontalAlignment="Left" 
+                                                 Margin="5,0,0,0"></TextBox>
+                                <Label>Площа підлоги, м²</Label>
+                                <TextBox x:Name="RoomAreaTextBox" 
+                                                 Width="100" 
+                                                 HorizontalAlignment="Left" 
+                                                 Margin="5,0,0,0"></TextBox>
+                                <Label>Площа вікон, м²</Label>
+                                <TextBox x:Name="WindowsAreaTextBox" 
+                                                 Width="100" 
+                                                 HorizontalAlignment="Left" 
+                                                 Margin="5,0,0,0"></TextBox>
+                                <Label>Загальна площа кімнати, м²</Label>
+                                <TextBox x:Name="TotalRoomAreaTextBox" 
+                                                 Width="100" 
+                                                 HorizontalAlignment="Left" 
+                                                 Margin="5,0,0,0"
+                                                 IsEnabled="False"></TextBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Загальні характеристики будівлі">
+                            <StackPanel>
+                                <Label>Температура будівлі при загальній схемі опалення, °С</Label>
+                                <TextBox x:Name="HouseTemperatureTextBox" 
+                                                 Width="100" 
+                                                 HorizontalAlignment="Left" 
+                                                 Margin="5,0,5,5"></TextBox>
+                                <DataGrid x:Name="HouseDataGrid" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Назва" Binding="{Binding Path=Name}" IsReadOnly="True"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Термічний опір, (м²·К)/Вт" Binding="{Binding Path=ThermalResist}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Коефіцієнт теплопередачі, Вт/(м²·К)" Binding="{Binding Path=ThermalTransfer}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </GroupBox>
+                        <Button x:Name="SaveRoomButton"
+                                        Width="100" 
+                                        HorizontalAlignment="Left" 
+                                        Margin="5,10,0,0" Click="SaveRoomButton_Click" FontSize="16" FontWeight="Bold">Зберегти</Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Потреби у енергії на приготування гарячої води та потужність системи ГВП">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Вхідні параметри">
+                        <StackPanel>
+                            <Label>Кількість користувачів душу</Label>
+                            <TextBox x:Name="ShowerUsersTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+                            <Label>Кількість користувачів ванни</Label>
+                            <TextBox x:Name="BathUsersTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+
+                            <Label>Добова норма споживання води для душу, л</Label>
+                            <TextBox x:Name="WaterQuantityForShowerTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+                            <Label>Добова норма споживання води для ванни, л</Label>
+                            <TextBox x:Name="WaterQuantityForBathTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+
+                            <Label>Температура води для душу, °С</Label>
+                            <TextBox x:Name="TemperatureForShowerTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+                            <Label>Температура води для ванни, °С</Label>
+                            <TextBox x:Name="TemperatureForBathTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+
+                            <Label>Температура вхідної води, °С</Label>
+                            <TextBox x:Name="TemperatureForInput" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+                            <Label>Температура води на виході з бака, °С</Label>
+                            <TextBox x:Name="TemperatureForOutput" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+
+                            <Label>Час для нагрівання бака, год</Label>
+                            <TextBox x:Name="TimeWaterHeatingTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"></TextBox>
+                            <Button x:Name="HelButton"
+                                    Width="100" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="5,10,0,0"
+                                    FontSize="16" FontWeight="Bold" Click="HelButton_Click">Обчислити</Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Результати розрахунків">
+                        <StackPanel>
+                            <Label>Обсяги споживання води на прийоми душу, л/добу</Label>
+                            <TextBox x:Name="ShowerWaterConsumptionTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+                            <Label>Обсяги споживання води на прийоми ванни, л/добу</Label>
+                            <TextBox x:Name="BathWaterConsumptionTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+
+                            <Label>Відкореговані обсяги споживання води на прийоми душу, л/добу</Label>
+                            <TextBox x:Name="CorrectedShowerWaterConsumptionTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+                            <Label>Відкореговані обсяги споживання води на прийоми ванни, л/добу</Label>
+                            <TextBox x:Name="CorrectedBathWaterConsumptionTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+                            <Label>Загальні обсяги споживання води,  м³/добу</Label>
+                            <TextBox x:Name="TotalConsumptionTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+
+                            <Label>Енергія необхідна для нагріву води,  кВт·год</Label>
+                            <TextBox x:Name="EnergyTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+                            <Label>Необхідна теплова потужність нагрівача, кВт</Label>
+                            <TextBox x:Name="PowerTextBox" 
+                                     Width="100" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"
+                                     IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Розрахунки для загальної схеми опалення">
+                <local:HeatView x:Name="HeatView1"></local:HeatView>
+            </TabItem>
+            <TabItem Header="Розрахунки для індивідуальної схеми опалення">
+                <local:HeatView x:Name="HeatView2"></local:HeatView>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

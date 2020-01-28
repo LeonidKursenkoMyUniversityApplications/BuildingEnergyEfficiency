@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="SmartHouse.Controls.HeatStore.HeatStoreView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHouse.Controls.HeatStore"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:charting="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Розрахунки">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="225"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <GroupBox Header="Зона денного тарифу">
+                            <StackPanel>
+                                <Label>Початок зони</Label>
+                                <xctk:MaskedTextBox x:Name="StartZoneTextBox"
+                                                    Mask="00:00"></xctk:MaskedTextBox>
+                                <Label>Кінець зони</Label>
+                                <xctk:MaskedTextBox x:Name="EndZoneTextBox"
+                                                    Mask="00:00"></xctk:MaskedTextBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Тариф за 1 кВт">
+                            <StackPanel>
+                                <Label>Для зони денного тарифу, грн</Label>
+                                <TextBox x:Name="DayRateTextBox"></TextBox>
+                                <Label>Для зони нічного тарифу, грн</Label>
+                                <TextBox x:Name="NightRateTextBox"></TextBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Характеристика накопичувача тепла">
+                            <StackPanel>
+                                <Label>Максимальний обсяг енергії, кВт·год</Label>
+                                <TextBox x:Name="CapacityTextBox"></TextBox>
+                                <Label>Потужність накопичувача, кВт</Label>
+                                <TextBox x:Name="PowerTextBox"></TextBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <Button x:Name="CalculateButton" HorizontalAlignment="Left" MinWidth="120" Margin="10,10,0,3" Click="CalculateButton_Click" FontSize="14" FontWeight="Bold" FontStyle="Italic">Застосувати</Button>
+                    </StackPanel>
+                    <TabControl Grid.Column="1">
+                        <TabItem Header="Таблиця">
+                            <DataGrid x:Name="HeatStoreDataGrid"
+                              
+                                      AutoGenerateColumns="False" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Дата" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                                    <DataGridTextColumn Header="Початок" Binding="{Binding StartDate, StringFormat=\{0:HH:mm\}}"/>
+                                    <DataGridTextColumn Header="Кінець" Binding="{Binding EndDate, StringFormat=\{0:HH:mm\}}"/>
+                                    <DataGridTextColumn Header="T, °C" Binding="{Binding Temperature}"/>
+                                    <DataGridTextColumn Header="Pтеп, кВт" Binding="{Binding HeatLossesPower}"/>
+                                    <DataGridTextColumn Header="Qтеп, кВтˑгод" Binding="{Binding HeatLosses}"/>
+                                    <DataGridTextColumn Header="Обсяги  енергії у накопичувачі на початку, кВт·год" Binding="{Binding StartEnergyAmount}"/>
+                                    <DataGridTextColumn Header="Обсяги  енергії у накопичувачі вкінці, кВт·год" Binding="{Binding EndEnergyAmount}"/>
+                                    <DataGridTextColumn Header="Доступна потужність, кВт" Binding="{Binding AvailablePower}"/>
+                                    <DataGridTextColumn Header="Реально спожита енергія, кВт·год" Binding="{Binding RealPower}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Графік">
+                            <WindowsFormsHost>
+                                <charting:Chart x:Name="StoreChart" GetToolTipText="StoreChart_GetToolTipText"/>
+                            </WindowsFormsHost>
+                        </TabItem>
+                    </TabControl>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Економічні розрахунки">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="1.1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <RichTextBox x:Name="CommonInfoBox" IsReadOnly="True"></RichTextBox>
+                        </StackPanel>
+                        <DataGrid x:Name="CostGrid"
+                                  Grid.Row="1"
+                                  AutoGenerateColumns="False" 
+                                  ScrollViewer.CanContentScroll="True" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        </DataGrid>
+                    </Grid>
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                    <Grid Grid.Column="2">
+                        <WindowsFormsHost>
+                            <charting:Chart x:Name="CostChart"/>
+                        </WindowsFormsHost>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

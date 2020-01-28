@@ -1,0 +1,60 @@
+﻿<Window x:Class="SmartHouse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartHouse"
+        xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:controls="clr-namespace:SmartHouse.Controls"
+        xmlns:graphEnergyConsumption="clr-namespace:SmartHouse.Controls.GraphEnergyConsumption"
+        xmlns:thermalEnergy="clr-namespace:SmartHouse.Controls.ThermalEnergy"
+        xmlns:windEnergy="clr-namespace:SmartHouse.Controls.WindEnergy"
+        xmlns:heatPomp="clr-namespace:SmartHouse.Controls.HeatPomp"
+        xmlns:heatStore="clr-namespace:SmartHouse.Controls.HeatStore"
+        xmlns:electricalLoadSchedule="clr-namespace:SmartHouse.Controls.ElectricalLoadSchedule"
+        xmlns:meteorogicalanalysis="clr-namespace:SmartHouse.Controls.MeteorogicalAnalysis"
+        mc:Ignorable="d"
+        xml:lang="uk-UK"
+        Title="Система моделювання структури та функціонального контенту інженерних систем енергоефективної будівлі" Height="550" Width="1025"
+        WindowState="Maximized" Loaded="Window_Loaded">
+    <Grid>
+        <DockPanel Margin="0,18,0.4,-0.2">
+            <TabControl x:Name="MainTabControl">
+                <TabItem x:Name="Task1TabItem" Header="Аналіз метеорологічних даних регіону">
+                    <meteorogicalanalysis:MeteorogicalAnalysisView x:Name="MeteorogicalAnalysisView"></meteorogicalanalysis:MeteorogicalAnalysisView>
+                </TabItem>
+                <TabItem Header="Моделювання графіка електричного навантаження">
+                    <electricalLoadSchedule:ElectricalLoadScheduleView x:Name="ElectricalLoadScheduleView"></electricalLoadSchedule:ElectricalLoadScheduleView>
+                </TabItem>
+                <TabItem Header="Теплотехнічні характеристики будівлі, потреба у тепловій енергії на опалення, ГВП та вентилювання ">
+                    <thermalEnergy:ThermalEnergy x:Name="ThermalEnergy"></thermalEnergy:ThermalEnergy>
+                </TabItem>
+                <TabItem Header="Визначення ефективності впровадження вітроенергетичної установки">
+                    <windEnergy:WindEnergyView x:Name="WindEnergyView"></windEnergy:WindEnergyView>
+                </TabItem>
+                <TabItem Header="Визначення ефективності впровадження повітряного теплового насосу">
+                    <heatPomp:HeatPumpView x:Name="HeatPumpView"></heatPomp:HeatPumpView>
+                </TabItem>
+                <TabItem Header="Розрахунок системи теплоакумулюючого електроопалення">
+                    <heatStore:HeatStoreView x:Name="HeatStoreView"></heatStore:HeatStoreView>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <Menu HorizontalAlignment="Left"  VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Зберегти" x:Name="SaveMenuItem" Click="SaveMenuItem_Click"></MenuItem>
+                <MenuItem Header="Вибрати дані" x:Name="ChooseDataMenuItem" Click="ChooseDataMenuItem_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Довідка">
+                <MenuItem Header="Довідка" x:Name="HelpMenuItem" Click="HelpMenuItem_Click"></MenuItem>
+                <MenuItem Header="Про програму" x:Name="AboutMenuItem" Click="AboutMenuItem_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>
+
+
+

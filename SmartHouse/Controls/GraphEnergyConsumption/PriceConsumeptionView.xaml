@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SmartHouse.Controls.PriceConsumeptionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHouse.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    <Grid Loaded="Grid_Loaded">
+        <TabControl>
+            <TabItem Header="Однозонний">
+                <StackPanel>
+                    <Label Content="За обсяг, спожитий до 100 кВт∙год електроенергії, грн"></Label>
+                    <TextBox x:Name="TextBox1PhaseLess100" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                    <Label Content="За обсяг, спожитий понад 100 кВт∙год електроенергії, грн"></Label>
+                    <TextBox x:Name="TextBox1PhaseMore100" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                    <Button x:Name="Button1Phase" Content="Розрахунок" Width="100" Height="30" Click="Button1Phase_Click" HorizontalAlignment="Left" Margin="10,20,0,0"></Button>
+                    <DataGrid x:Name="DataGrid1Phase" Margin="10,20" AutoGenerateColumns="False"></DataGrid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Двозонний">
+                <StackPanel>
+                    <Label Content="За 1 кВт∙год спожитої електроенергії, грн"></Label>
+                    <TextBox x:Name="TextBox2PhasePrice" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                    <Button x:Name="Button2Phase" Content="Розрахунок" Width="100" Height="30" HorizontalAlignment="Left" Margin="10,20,0,0" Click="Button2Phase_Click"></Button>
+                    <DataGrid x:Name="DataGrid2Phase" Margin="10,20" AutoGenerateColumns="False"></DataGrid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Тризонний">
+                <StackPanel>
+                    <Label Content="За 1 кВт∙год спожитої електроенергії, грн"></Label>
+                    <TextBox x:Name="TextBox3PhasePrice" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                    <Button x:Name="Button3Phase" Content="Розрахунок" Width="100" Height="30" HorizontalAlignment="Left" Margin="10,20,0,0" Click="Button3Phase_Click" ></Button>
+                    <DataGrid x:Name="DataGrid3Phase" Margin="10,20" AutoGenerateColumns="False"></DataGrid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+            
+    </Grid>
+</UserControl>

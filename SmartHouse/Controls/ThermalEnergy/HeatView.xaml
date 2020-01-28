@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="SmartHouse.Controls.ThermalEnergy.HeatView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHouse.Controls.ThermalEnergy"
+             xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="125"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <GroupBox Header="Виберіть період">
+                <StackPanel>
+                    <Label>Початкова дата</Label>
+                    <WindowsFormsHost >
+                        <wf:DateTimePicker x:Name="DateTimePickerStart" 
+                                           Format="Custom" CustomFormat="dd.MM.yyyy HH:mm" 
+                                           ValueChanged="DateTimePickerStart_ValueChanged" Enabled="False"
+                                           ></wf:DateTimePicker>
+                    </WindowsFormsHost>
+                    <Label>Кінцева дата</Label>
+                    <WindowsFormsHost >
+                        <wf:DateTimePicker x:Name="DateTimePickerEnd" 
+                                           Format="Custom" CustomFormat="dd.MM.yyyy HH:mm" 
+                                           ValueChanged="DateTimePickerEnd_ValueChanged" Enabled="False"></wf:DateTimePicker>
+                    </WindowsFormsHost>
+                </StackPanel>
+            </GroupBox>
+
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+        <TabControl Grid.Column="2">
+            <TabItem Header="Тепловтрати при розрахунковій температурі">
+                <StackPanel>
+                    <Label>Розрахункова температура, °C</Label>
+                    <TextBox x:Name="CalculatedTemperatureTextBox" Width="200" HorizontalAlignment="Left" Margin="5,0,0,5" ></TextBox>
+                    <Button x:Name="CalculatedTemperatureButton" Width="200.8" 
+                            HorizontalAlignment="Left" Margin="240,-30,5,0" 
+                            FontSize="16" FontWeight="Bold" Click="CalculatedTemperatureButton_Click">Застосувати</Button>
+                    <DataGrid x:Name="HeatLossesDataGrid" Margin="0,5,0,0"></DataGrid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Характеристика тепловтрат будівлі">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <DockPanel Grid.Column="0">
+                        <DataGrid x:Name="CharacteristicGrid" 
+                                          AutoGenerateColumns="False" 
+                                          ScrollViewer.CanContentScroll="True" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        </DataGrid>
+                    </DockPanel>
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                    <WindowsFormsHost Grid.Column="2">
+                        <dvc:Chart x:Name="CharacteristicChart" GetToolTipText="CharacteristicHeatLossesChart_GetToolTipText" />
+                    </WindowsFormsHost>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Витрати енергії на опалення">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <DataGrid x:Name="HeatGrid"
+                                      AutoGenerateColumns="False" 
+                                      ScrollViewer.CanContentScroll="True" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        </DataGrid>
+                    </Grid>
+
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <WindowsFormsHost Grid.Row="1">
+                            <dvc:Chart x:Name="HeatChart" GetToolTipText="HeatChart_GetToolTipText" />
+                        </WindowsFormsHost>
+                        <Label Grid.Row="0" x:Name="TotalConsumptionLabel" FontSize="14" FontWeight="Bold" FontStyle="Italic">label</Label>
+                    </Grid>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Вартість опалення та ГВП">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition Width="1.1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="TypeHeatGrid" Grid.Row="0"
+                                  AutoGenerateColumns="False" 
+                                  ScrollViewer.CanContentScroll="True" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        </DataGrid>
+                        <DataGrid x:Name="CostGrid" Grid.Row="1"
+                                  AutoGenerateColumns="False" 
+                                  ScrollViewer.CanContentScroll="True" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        </DataGrid>
+                    </Grid>
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <Label x:Name="TotalHeatHelConsumptionLabel" FontWeight="Bold" FontStyle="Italic">Витрати енергії на опалення та ГВП</Label>
+                            <Button x:Name="CalculatedCostButton" Width="200.8" 
+                                    HorizontalAlignment="Left" Margin="5,0,5,0" 
+                                    FontSize="16" FontWeight="Bold" 
+                                    Click="CalculatedCostButton_Click">Обчислити</Button>
+                        </StackPanel>
+                        <WindowsFormsHost Grid.Row="1">
+                            <dvc:Chart x:Name="CostChart"/>
+                        </WindowsFormsHost>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</UserControl>

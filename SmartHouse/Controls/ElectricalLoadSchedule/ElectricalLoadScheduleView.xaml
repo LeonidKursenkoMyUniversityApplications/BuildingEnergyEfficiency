@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="SmartHouse.Controls.ElectricalLoadSchedule.ElectricalLoadScheduleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHouse.Controls.ElectricalLoadSchedule"
+             xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             xmlns:graphEnergyConsumption="clr-namespace:SmartHouse.Controls.GraphEnergyConsumption"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <TabControl>
+        <TabItem Header="Споживачі">
+            <StackPanel>
+                <StackPanel HorizontalAlignment="Left"  Orientation="Horizontal" Margin="25,25,-5,10">
+                    <TextBlock>Список споживачів електроенергії</TextBlock>
+                    <TextBlock Margin="90,0,0,0">Доступні дії</TextBlock>
+                    <Button x:Name="DeleteDeviceButton" Content="Видалити" Width="60" Margin="10,0,0,0" Click="DeleteDeviceButton_Click"></Button>
+                    <Button x:Name="AddDeviceButton" Content="Додати" Margin="12,0,0,0" Width="60" Click="AddDeviceButton_Click"></Button>
+                    <Button x:Name="SaveDeviceButton" Content="Зберегти" Margin="12,0,0,0" Width="60" Click="SaveDeviceButton_Click"></Button>
+                </StackPanel>
+                <DataGrid x:Name="DeviceDataGrid"
+                                          IsReadOnly="False"
+                                          AutoGenerateColumns="False" 
+                                          ScrollViewer.CanContentScroll="True" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="DeviceDataGrid_SelectedCellsChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Споживач" Binding="{Binding Path=Name}" Width="300" />
+                        <DataGridTextColumn Header="Потужність, кВт" Binding="{Binding Path=Power}" Width="100" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Графік забезпечення потреб">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.85*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0"
+                                    Header="Список споживачів">
+                        <ListBox x:Name="DeviceTypeListBox" SelectionChanged="DeviceTypeListBox_SelectionChanged"></ListBox>
+                    </GroupBox>
+                    <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch" />
+                    <GroupBox Grid.Row="2" Header="Виберіть день">
+                        <ListBox x:Name="DeviceDayOfWeekListBox" SelectionChanged="DeviceDayOfWeekListBox_SelectionChanged"></ListBox>
+                    </GroupBox>
+                </Grid>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                <DockPanel Grid.Column="2">
+                    <StackPanel>
+                        <StackPanel HorizontalAlignment="Left"  Orientation="Horizontal" Margin="25,25,-5,10">
+                            <TextBlock >Доступні дії</TextBlock>
+                            <Button x:Name="DeleteDevicePeriodButton" Content="Видалити" Width="60" Margin="10,0,0,0" Click="DeleteDevicePeriodButton_Click" ></Button>
+                            <Button x:Name="AddDevicePeriodButton" Content="Додати" Margin="12,0,0,0" Width="60" Click="AddDevicePeriodButton_Click"></Button>
+                            <Button x:Name="SaveDevicePeriodButton" Content="Зберегти" Margin="12,0,0,0" Width="60" Click="SaveDevicePeriodButton_Click"></Button>
+                        </StackPanel>
+                        <DataGrid x:Name="DevicePeriodsDataGrid"
+                                                  IsReadOnly="False"
+                                                  AutoGenerateColumns="False" 
+                                                  ScrollViewer.CanContentScroll="True" 
+                                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="DevicePeriodsDataGrid_SelectedCellsChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Від" Binding="{Binding Path=Start, StringFormat=\{0:HH:mm:ss\}}" Width="100" />
+                                <DataGridTextColumn Header="До" Binding="{Binding Path=End, StringFormat=\{0:HH:mm:ss\}}" Width="100" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </DockPanel>
+                <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch" />
+                <WindowsFormsHost Grid.Column="4">
+                    <dvc:Chart x:Name="DevicePeriodsChart" />
+                </WindowsFormsHost>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Графік електричного споживання">
+            <graphEnergyConsumption:GraphEnergyLoadView x:Name="RealGraphEnergyLoadView"></graphEnergyConsumption:GraphEnergyLoadView>
+        </TabItem>
+        <TabItem Header="Оптимізація графіка електричного споживання">
+            <graphEnergyConsumption:OptimizationGraphEnergyLoadView x:Name="OptimizationView"></graphEnergyConsumption:OptimizationGraphEnergyLoadView>
+        </TabItem>
+
+
+    </TabControl>
+</UserControl>
