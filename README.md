@@ -1,10 +1,10 @@
 # BuildingEnergyEfficiency
 ### Information
-Master`s thesis is a system of modeling the structure and functional content of engineering systems of energy efficient building.
-This software product is created for the purpose of master`s work and is not intended for commercial use. 
+Master's thesis is a system of modeling the structure and functional content of engineering systems of energy efficient building.
+This software product is created for the purpose of master's work and is not intended for commercial use. 
 This application was created when I studied at the university in 2018-2019.
 
-C # programming language and Microsoft Visual Studio 2017 programming environment were used to develop the appliction. 
+C# programming language and Microsoft Visual Studio 2017 programming environment were used to develop the appliction. 
 A WPF framework was used to develop the GUI. The appliction was designed for use with Windows 10.
 
 The problem of improving the energy efficiency of the building is important for all mankind, 
